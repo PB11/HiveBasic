@@ -23,4 +23,8 @@ join rev_location  loc_ci on ((e.X=  loc_ci.Y))
 join `OPN_RENT_ASSOC`  x on (e.`Z`=  x.`AZ` and e.`AB` = x.`AB` )
 left outer join `rev_account_segmentation` b on (e.`AB` =b.AB and e.`AC`= b.`AC`)
 
-where e.AB in ('A', 'B') and loc_co.`AD` = 'US' and SUBSTR(e.`date`,0, 4) in ( '2016', '2017', '2018');
+where e.AB in ('A', 'B') and 
+loc_co.`AD` = 'US' and 
+SUBSTR(e.`date`,0, 4) in ( '2016', '2017', '2018') and
+airport_ind IS NOT  NULL And
+;
