@@ -1,0 +1,26 @@
+select e.*,
+
+loc_co.`A`,
+loc_co.`B`,
+
+loc_ci.`K`,
+loc_ci.`L`,
+
+b.`U` as SEGMENT,
+b.`V`,
+
+x.W,
+
+(case when a.oldvar is null then 0 else 1 end) as newvar,
+(case when a.oldvar1 = a.oldvar2 then 0 else 1 end) as newvar1,
+(case when b.oldvar3 = 'S' and b.oldvar4 = 'URW'  then 1 else 0 end) as newvar2,
+(cast(SUBSTR(a.date,0,4) as int) - f.birth_year) as age,
+
+from `rental_fact`  e  
+
+join rev_location  loc_co on ((e.X=  loc_co.Y)) 
+join rev_location  loc_ci on ((e.X=  loc_ci.Y))
+join `OPN_RENT_ASSOC`  x on (e.`Z`=  x.`AZ` and e.`AB` = x.`AB` )
+left outer join `rev_account_segmentation` b on (e.`AB` =b.AB and e.`AC`= b.`AC`)
+
+where e.AB in ('A', 'B') and loc_co.`AD` = 'US' and SUBSTR(e.`date`,0, 4) in ( '2016', '2017', '2018');
