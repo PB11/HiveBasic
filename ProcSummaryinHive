@@ -1,0 +1,28 @@
+ 
+select  var_to_be_summarized, 
+        sum(NEW_DATA.damage_ind_one) as damage_ind_one, 
+        sum(NEW_DATA.damage_ind_zero) as damage_ind_zero
+from
+(
+SELECT var_to_be_summarized,
+       count(Var_summarizedBy)  as damage_ind_one, 
+       0 as damage_ind_zero
+FROM  DATA 
+WHERE Var_summarizedBy = 1
+GROUP BY  var_to_be_summarized
+
+UNION ALL
+
+SELECT  var_to_be_summarized, 
+        0 as damage_ind_one, 
+        count(Var_summarizedBy)  as damage_ind_zero
+FROM `DATA`  
+WHERE Var_summarizedBy = 0
+GROUP BY   var_to_be_summarized
+)
+
+NEW_DATA
+GROUP BY var_to_be_summarized
+;
+
+
